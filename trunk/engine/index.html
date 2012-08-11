@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>Crandra's Quest V</title>
+<link href="styles/main.css" rel="stylesheet" type="text/css" />
+<script src="scripts/advent.js"></script>
+<script src="scripts/scene.js"></script>
+<script src="scripts/inventory.js"></script>
+<script src="scripts/action.js"></script>
+<script src="scripts/animation.js"></script>
+<script src="scripts/gamearea.js"></script>
+<script src="scripts/currentarea.js"></script>
+<script src="scripts/actionarea.js"></script>
+<script src="scripts/inventoryarea.js"></script>
+<script src="scripts/globalscene.js"></script>
+<script src="scripts/townscene.js"></script>
+<script src="scripts/fountainscene.js"></script>
+<script src="scripts/pantryscene.js"></script>
+<script src="scripts/hallscene.js"></script>
+<script src="scripts/studyscene.js"></script>
+<script src="scripts/scripting.js"></script>
+<script>
+var game = new advent.Game();
+
+function start() {
+  var el = document.getElementById('container');
+  game.init(el);
+}
+</script>
+</head>
+<body onload="start();">
+<div id="container"></div>
+</body>
+</html>
