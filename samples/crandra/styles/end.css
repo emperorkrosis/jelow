@@ -1,0 +1,62 @@
+#container {
+    position: absolute;
+    height: 768px;
+    width: 1024px;
+    background-color: #000000;
+    overflow: hidden;
+    color: #dddddd;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+#credits {
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    margin: 100px;
+    width: 800px;
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#credits p#game-title {
+    color: #983C98;
+    margin-top: 240px;
+    margin-bottom: 400px;
+    font-size: 42px;
+}
+
+#credits p {
+    color: #983C98;
+    font-size: 18px;
+}
+
+#credits dt {
+    color: #600060;
+}
+
+#credits dd {
+    color: #983C98;
+    margin-bottom: 2.5em;
+    margin-left: 0em;
+}
+
+#credits2 {
+    margin-top: 9em;
+    margin-bottom: 12em;
+    display:none;
+}
+
+#credits3 {
+    margin-top: 9em;
+    margin-bottom: 12em;
+    display: none;
+}
+
+#credits4 {
+    margin-top: 9em;
+    margin-bottom: 12em;
+    display:none;
+}
