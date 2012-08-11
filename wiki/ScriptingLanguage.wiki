@@ -1,0 +1,38 @@
+#summary Documentation for the game engine scripting language.
+
+= Introduction =
+
+The scripting language is an op-code based language similar to assembly.
+
+= Details =
+
+== Engine Overview ==
+
+One of the elements of a game scene are one or more scripts that can run in different situations. For example, a script can run whenever the scene is loaded, or whenever objects are used with each other. The scene itself determines when a particular script will run.
+
+== Op Codes ==
+
+This section contains information on each of the op codes that make up the scripting language.
+
+=== Summary ===
+
+The following op codes are supported by the language:
+NOP: Does nothing.
+TALK: Adds text to the speech bubble of a character.
+ADD_ITEM: Add an item to the user's inventory.
+REMOVE_ITEM: Remove an item from the user's inventory.
+WALK: Move a character from one location to another.
+LOAD: Load a new scene.
+ADD_FLAG: Add a non-visible flag to the user.
+REMOVE_FLAG: Remove a non-visible flag from the user.
+REMOVE_EL: Remove an object from the scene.
+MOVE_EL: Move an object in the scene.
+IF_FLAG: Conditional don't jump depending on the value of a flag.
+IF_NOT_FLAG: Conditional jump depending on the value of a flag.
+EXIT: Exit the script, useful for terminating a script early.
+CHANGE_IMAGE: Change the image of an object in a scene.
+FINISH: Finish the game and navigate the user to a new page.
+
+=== Detailed Description ====
+
+=== Examples ===
