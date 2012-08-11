@@ -17,22 +17,28 @@ This section contains information on each of the op codes that make up the scrip
 === Summary ===
 
 The following op codes are supported by the language:
-NOP: Does nothing.
-TALK: Adds text to the speech bubble of a character.
-ADD_ITEM: Add an item to the user's inventory.
-REMOVE_ITEM: Remove an item from the user's inventory.
-WALK: Move a character from one location to another.
-LOAD: Load a new scene.
-ADD_FLAG: Add a non-visible flag to the user.
-REMOVE_FLAG: Remove a non-visible flag from the user.
-REMOVE_EL: Remove an object from the scene.
-MOVE_EL: Move an object in the scene.
-IF_FLAG: Conditional don't jump depending on the value of a flag.
-IF_NOT_FLAG: Conditional jump depending on the value of a flag.
-EXIT: Exit the script, useful for terminating a script early.
-CHANGE_IMAGE: Change the image of an object in a scene.
-FINISH: Finish the game and navigate the user to a new page.
+* NOP: Does nothing.
+* TALK: Adds text to the speech bubble of a character.
+* ADD_ITEM: Add an item to the user's inventory.
+* REMOVE_ITEM: Remove an item from the user's inventory.
+* WALK: Move a character from one location to another.
+* LOAD: Load a new scene.
+* ADD_FLAG: Add a non-visible flag to the user.
+* REMOVE_FLAG: Remove a non-visible flag from the user.
+* REMOVE_EL: Remove an object from the scene.
+* MOVE_EL: Move an object in the scene.
+* IF_FLAG: Conditional don't jump depending on the value of a flag.
+* IF_NOT_FLAG: Conditional jump depending on the value of a flag.
+* EXIT: Exit the script, useful for terminating a script early.
+* CHANGE_IMAGE: Change the image of an object in a scene.
+* FINISH: Finish the game and navigate the user to a new page.
+
+=== Commands with Async Side Effects ===
+
+Some commands execute synchronously, but have an asynchronous side effect, for example the WALK command starts the character walking toward a particular destination, but does not wait for the character to reach that destination before continuing.
 
 === Detailed Description ====
+
+*NOP*: This command is a no-op.
 
 === Examples ===
