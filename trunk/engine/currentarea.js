@@ -3,38 +3,40 @@
 var advent = advent || {};
 
 /**
- * Constructor.
+ * Wrapper around the interface element that is responsible for displaying
+ * the current action.
+ * @param {!advent.Game} parent The parent game object.
+ * @constructor
  */
 advent.CurrentArea = function(parent) {
+  /**
+   * The main game object, needed for access to the current action.
+   * @private {!advent.Game}
+   */
   this.game_ = parent;
+
+  /**
+   * The HTML element that is managed by this class.
+   * @private {HTMLElement}
+   */
   this.element_ = null;
 };
 
 
 /**
  * Initialize the current action notification area.
+ * @param {HTMLElement} el The parent element to populate with this control.
  */
 advent.CurrentArea.prototype.init = function(el) {
+  // Create the main element for the control and add it to the parent UI.
   this.element_ = document.createElement('div');
   this.element_.id = 'currentarea';
-  this.element_.innerHTML = 'Use Faucet Handle';
+  this.element_.innerHTML = this.game_.currentAction.getText();
   el.appendChild(this.element_);
-  this.setAction_(this.game_.currentAction);
-};
 
-
-/**
- * Takes the current action and displays the notification
- * message for this action.
- */
-advent.CurrentArea.prototype.setAction_ = function(action) {
+  // Listen for changes to the current action in order to update the display.
   var object = this;
   this.game_.currentAction.onchange.push(function(action) {
-    object.setText_(action.getText());
+    object.element_.innerHTML = action.getText();
   });
-  this.setText_(this.game_.currentAction.getText());
-};
-
-advent.CurrentArea.prototype.setText_ = function(txt) {
-  this.element_.innerHTML = txt;
 };

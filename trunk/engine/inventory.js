@@ -4,6 +4,7 @@ advent.Inventory = {};
 
 /**
  * Game inventory items.
+ * TODO: These are game specific and should be moved.
  */
 advent.Inventory.Items = [
   {

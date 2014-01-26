@@ -3,7 +3,8 @@
 var advent = advent || {};
 
 /**
- * Construct the classes for the adventure game.
+ * Singleton class representing the entire game.
+ * @constructor
  */
 advent.Game = function() {
   this.currentAction = new advent.Action();
@@ -17,7 +18,10 @@ advent.Game = function() {
 
 
 /**
- * Construct all the DOM elements for the adventure game.
+ * Initialize and start the game. This should construct all DOM elements for
+ * the adventure game and activate all appropriate UI elements.
+ * @param {!HTMLElement} el The HTML element to act as a container for the
+ *     game.
  */
 advent.Game.prototype.init = function(el) {
   this.element_ = el;

@@ -156,67 +156,67 @@ advent.StudyScene = function(parent) {
      .add(0, Script.Ops.TALK, ['pctalk', 'Hey! Who\'s the man in the mirror?'.toUpperCase(), 3000])
      ],
     [advent.Verb.PICKUP, 'mirror', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "It's too heavy, and I'm too short.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'It\'s too heavy, and I\'m too short.'.toUpperCase(), 3000])
      ],
     [advent.Verb.LOOKAT, 'hat', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "What a nice hat! But not as nice as mine.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'What a nice hat! But not as nice as mine.'.toUpperCase(), 3000])
      ],
     [advent.Verb.PICKUP, 'hat', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "Too bad I've already got a hat, or I'd steal this one.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Too bad I\'ve already got a hat, or I\'d steal this one.'.toUpperCase(), 3000])
      ],
     [advent.Verb.LOOKAT, 'Millennium Falcon', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "This looks like it could make the Kessel run in 12 parsecs".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'This looks like it could make the Kessel run in 12 parsecs'.toUpperCase(), 3000])
      ],
     [advent.Verb.PICKUP, 'Millennium Falcon', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "I doubt a spaceship would fit in my pocket.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'I doubt a spaceship would fit in my pocket.'.toUpperCase(), 3000])
      ],
     [advent.Verb.LOOKAT, 'ship in bottle', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "How'd that ship get in there?".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'How\'d that ship get in there?'.toUpperCase(), 3000])
      ],
     [advent.Verb.LOOKAT, 'DeLorean', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "No use. I'd need a nuclear reaction to generate the 1.21 gigawatts of electricity I need.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'No use. I\'d need a nuclear reaction to generate the 1.21 gigawatts of electricity I need.'.toUpperCase(), 3000])
      ],
     [advent.Verb.PICKUP, 'DeLorean', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "Time machines and pockets don't go together.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Time machines and pockets don\'t go together.'.toUpperCase(), 3000])
      ],
     [advent.Verb.LOOKAT, 'flower vase', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "This vase nicely complements the eclectic decor of the study.".toUpperCase(),3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'This vase nicely complements the eclectic decor of the study.'.toUpperCase(),3000])
      ],
     [advent.Verb.PICKUP, 'flower vase', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "Uh-uh. I'd get water in my pockets..".toUpperCase(),3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Uh-uh. I\'d get water in my pockets..'.toUpperCase(),3000])
      ],
     [advent.Verb.LOOKAT, 'portal', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "Looks like I've found the secret portal!".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Looks like I\'ve found the secret portal!'.toUpperCase(), 3000])
      ],
     [advent.Verb.PICKUP, 'portal', null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "Don't be silly, you can't pick up a portal!".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Don\'t be silly, you can\'t pick up a portal!'.toUpperCase(), 3000])
      ],
     [advent.Verb.LOOKAT, 'bookshelf', null, true, new Script(this.game_)
      .add(0, Script.Ops.IF_NOT_FLAG, ['book1',0,3] )
-     .add(0, Script.Ops.TALK, ['pctalk', "Gee, that's a lot of books. Let's take a look....".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Gee, that\'s a lot of books. Let\'s take a look....'.toUpperCase(), 3000])
      .add(0, Script.Ops.ADD_FLAG, ['book1'])
      .add(0, Script.Ops.END, [])
 
      .add(0, Script.Ops.IF_NOT_FLAG, ['book2',0,3] )
-     .add(0, Script.Ops.TALK, ['pctalk', "'Hitchiker's Guide to the Galaxy.' That looks almost as useful as a towel.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', '\'Hitchiker\'s Guide to the Galaxy.\' That looks almost as useful as a towel.'.toUpperCase(), 3000])
      .add(0, Script.Ops.ADD_FLAG, ['book2'])
      .add(0, Script.Ops.END, [])
 
      .add(0, Script.Ops.IF_NOT_FLAG, ['book3',0,3] )
-     .add(0, Script.Ops.TALK, ['pctalk', "Ahhh...'The Dream of the Fire.' A classic Klingon novel by K'Ratak.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Ahhh...\'The Dream of the Fire.\' A classic Klingon novel by K\'Ratak.'.toUpperCase(), 3000])
      .add(0, Script.Ops.ADD_FLAG, ['book3'])
      .add(0, Script.Ops.END, [])
 
      .add(0, Script.Ops.IF_NOT_FLAG, ['book4',0,3] )
-     .add(0, Script.Ops.TALK, ['pctalk', "Hey. I'd been meaning to finish reading 'The Help.'".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Hey. I\'d been meaning to finish reading \'The Help.\''.toUpperCase(), 3000])
      .add(0, Script.Ops.ADD_FLAG, ['book4'])
      .add(0, Script.Ops.END, [])
 
      .add(0, Script.Ops.IF_NOT_FLAG, ['book5',0,3] )
-     .add(0, Script.Ops.TALK, ['pctalk', "'Ready Player Two: The Sequel'.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', '\'Ready Player Two: The Sequel\'.'.toUpperCase(), 3000])
      .add(0, Script.Ops.ADD_FLAG, ['book5'])
      .add(0, Script.Ops.END, [])
-     .add(0, Script.Ops.TALK, ['pctalk', "I'll never find the right book! Time to try something else.".toUpperCase(), 3000])
+     .add(0, Script.Ops.TALK, ['pctalk', 'I\'ll never find the right book! Time to try something else.'.toUpperCase(), 3000])
 
      .add(0, Script.Ops.REMOVE_FLAG, ['book1'])
      .add(0, Script.Ops.REMOVE_FLAG, ['book2'])
@@ -225,9 +225,9 @@ advent.StudyScene = function(parent) {
      .add(0, Script.Ops.REMOVE_FLAG, ['book5'])
      ],
 
-    [advent.Verb.USE, "pixel hunter's pixel", "bookshelf", true, new Script(this.game_)
-     .add(0, Script.Ops.CHANGE_IMAGE, ["scene-background","images/StudyPortalOpen.png"])
-     .add(0, Script.Ops.TALK, ['pctalk',"Hey presto! Something's happening.".toUpperCase(), 3000])
+    [advent.Verb.USE, 'pixel hunter\'s pixel', 'bookshelf', true, new Script(this.game_)
+     .add(0, Script.Ops.CHANGE_IMAGE, ['scene-background', 'images/StudyPortalOpen.png'])
+     .add(0, Script.Ops.TALK, ['pctalk', 'Hey presto! Something\'s happening.'.toUpperCase(), 3000])
      .add(200, Script.Ops.CHANGE_IMAGE, ['obj-bookshelf', 'images/Bookshelf1.png'])
      .add(200, Script.Ops.CHANGE_IMAGE, ['obj-bookshelf', 'images/Bookshelf2.png'])
      .add(200, Script.Ops.CHANGE_IMAGE, ['obj-bookshelf', 'images/Bookshelf3.png'])
@@ -239,8 +239,8 @@ advent.StudyScene = function(parent) {
      .add(0, Script.Ops.REMOVE_EL, ['act-bookshelf'])
      .add(0, Script.Ops.ADD_FLAG, ['portal-open'])
       ],
-    [advent.Verb.WALKTO, "portal", null, true, new Script(this.game_)
-     .add(0, Script.Ops.TALK, ['pctalk', "Well, I guess all that's left is to walk through this secret portal".toUpperCase(), 3000])
+    [advent.Verb.WALKTO, 'portal', null, true, new Script(this.game_)
+     .add(0, Script.Ops.TALK, ['pctalk', 'Well, I guess all that\'s left is to walk through this secret portal'.toUpperCase(), 3000])
      .add(2000, Script.Ops.WALK, [169, 357] )
      .add(0, Script.Ops.CHANGE_IMAGE, ['kg', 'images/chars/kg/kgFearL.png'])
      .add(1000, Script.Ops.FINISH, ['endCredits.html'])
@@ -251,12 +251,12 @@ advent.StudyScene = function(parent) {
 
 advent.StudyScene.prototype.beforeLoad = function() {
     if(this.game_.inventoryArea.hasFlag('portal-open')) {
-	this.backgroundImage = "images/StudyPortalOpen.png";
+	this.backgroundImage = 'images/StudyPortalOpen.png';
 	advent.SceneData.setObjectImage(this, 'obj-bookshelf',
 					'./images/Bookshelf8.png');
 	advent.SceneData.removeActionObject(this, 'act-bookshelf');
     } else {
-	this.backgroundImage = "images/Study.png";
+	this.backgroundImage = 'images/Study.png';
     }
 
 };

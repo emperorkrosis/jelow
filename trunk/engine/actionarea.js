@@ -3,12 +3,34 @@
 var advent = advent || {};
 
 /**
- * Constructor.
+ * Wrapper around the interface element that is responsible for allowing the
+ * user to select actions in the interface.
+ * @param {!advent.Game} parent The parent game object.
+ * @constructor
  */
 advent.ActionArea = function(parent) {
+  /**
+   * The main game object, needed for access to the current action.
+   * @private {!advent.Game}
+   */
   this.game_ = parent;
+
+  /**
+   * The HTML element that is managed by this class.
+   * @private {HTMLElement}
+   */
   this.element_ = null;
+
+  /**
+   * Array containing the base class names for each of the child buttons.
+   * @private {!Array.<string>}
+   */
   this.baseClassNames_ = new Array(9);
+
+  /**
+   * Array of the button elements for each child button.
+   * @private {!Array.<HTMLElement>}
+   */
   this.buttons_ = new Array(9);
 };
 
@@ -16,85 +38,54 @@ advent.ActionArea = function(parent) {
 /**
  * Initialize the actions panel by creating all the buttons and assigning
  * their event handlers.
+ * @param {HTMLElement} el The parent element to populate with this control.
  */
 advent.ActionArea.prototype.init = function(el) {
+  // Create the main element for this control.
   this.element_ = document.createElement('div');
   this.element_.id = 'actionarea';
   var object = this;
+  // TODO: This should eventually be passed in.
+  var buttonParams = [
+      ['Give', 'givebutton', true, advent.Verb.GIVE],
+      ['Pick Up', 'pickupbutton', false, advent.Verb.PICKUP],
+      ['Use', 'usebutton', true, advent.Verb.USE],
+      ['Open', 'openbutton', true, advent.Verb.OPEN],
+      ['Look At', 'lookatbutton', false, advent.Verb.LOOKAT],
+      ['Push', 'pushbutton', true, advent.Verb.PUSH],
+      ['Close', 'closebutton', true, advent.Verb.CLOSE],
+      ['Talk To', 'talkbutton', false, advent.Verb.TALKTO],
+      ['Pull', 'pullbutton', true, advent.Verb.PULL]
+    ];
 
-  var button = this.createButton_('Give', 'givebutton', true,
-      advent.Verb.GIVE);
-  button.onclick = function(e) {
-    object.handleGiveClick();
-  };
-  this.element_.appendChild(button);
+  // Add all the buttons to the control.
+  for (var i = 0; i < buttonParams.length; i++) {
+    var p = buttonParams[i];
+    var button = this.createButton_(p[0], p[1], p[2], p[3]);
+    button.onclick = function(e) {
+      object.handleClick_(p[3]);
+    };
+    this.element_.appendChild(button);
+  }
 
-  button = this.createButton_('Pick Up', 'pickupbutton', false,
-      advent.Verb.PICKUP);
-  button.onclick = function(e) {
-    object.handlePickUpClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Use', 'usebutton', true,
-      advent.Verb.USE);
-  button.onclick = function(e) {
-    object.handleUseClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Open', 'openbutton', true,
-      advent.Verb.OPEN);
-  button.onclick = function(e) {
-    object.handleOpenClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Look At', 'lookbutton', false,
-      advent.Verb.LOOKAT);
-  button.onclick = function(e) {
-    object.handleLookAtClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Push', 'pushbutton', true,
-      advent.Verb.PUSH);
-  button.onclick = function(e) {
-    object.handlePushClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Close', 'closebutton', true,
-      advent.Verb.CLOSE);
-  button.onclick = function(e) {
-    object.handleCloseClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Talk To', 'talkbutton', false,
-      advent.Verb.TALKTO);
-  button.onclick = function(e) {
-    object.handleTalkToClick();
-  };
-  this.element_.appendChild(button);
-
-  button = this.createButton_('Pull', 'pullbutton', true,
-      advent.Verb.PULL);
-  button.onclick = function(e) {
-    object.handlePullClick();
-  };
-  this.element_.appendChild(button);
-
+  // Add this control to the main UI.
   el.appendChild(this.element_);
 
-  // Listen for changes
+  // Listen for changes to the current action in order to update button
+  // highlighting.
   this.game_.currentAction.onchange.push(function(action) {
-    object.updateClassNames(action.getVerb());
+    object.updateHighlighting(action.getVerb());
   });
 };
 
 
-advent.ActionArea.prototype.updateClassNames = function(verb) {
+/**
+ * Given a verb, update the button highlighting so that the given verb is
+ * lighlighted.
+ * @param {advent.Verb} verb The current verb whose button should be
+ *     highlighted.
+ */
+advent.ActionArea.prototype.updateHighlighting = function(verb) {
   for(var i = 0; i < this.buttons_.length; i++) {
     if (i == verb) {
       this.buttons_[i].className = this.baseClassNames_[i] + ' active-button'; 
@@ -106,8 +97,16 @@ advent.ActionArea.prototype.updateClassNames = function(verb) {
   }
 };
 
+
 /**
- * Helper method for creating an action button.
+ * Helper method for creating an action button in the DOM.
+ * @param {string} name Textual name.
+ * @param {string} className Component of the class name specific to this
+ *     button.
+ * @param {boolean} narrow Whether or not the button is narrow.
+ * @param {number} index The index of the button.
+ * @returns {HTMLElement} The create button element.
+ * @private
  */
 advent.ActionArea.prototype.createButton_ = function(name, className, narrow,
     index) {
@@ -122,71 +121,10 @@ advent.ActionArea.prototype.createButton_ = function(name, className, narrow,
 
 
 /**
- * Handle the Give action button being clicked.
+ * Handle an action button being clicked.
+ * @param {advent.Verb} verb The verb to set.
+ * @private
  */
-advent.ActionArea.prototype.handleGiveClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.GIVE);
-};
-
-
-/**
- * Handle the Pick Up action button being clicked.
- */
-advent.ActionArea.prototype.handlePickUpClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.PICKUP);
-};
-
-
-/**
- * Handle the Use action button being clicked.
- */
-advent.ActionArea.prototype.handleUseClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.USE);
-};
-
-
-/**
- * Handle the Open action button being clicked.
- */
-advent.ActionArea.prototype.handleOpenClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.OPEN);
-};
-
-/**
- * Handle the Look At action button being clicked.
- */
-advent.ActionArea.prototype.handleLookAtClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.LOOKAT);
-};
-
-
-/**
- * Handle the Push action button being clicked.
- */
-advent.ActionArea.prototype.handlePushClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.PUSH);
-};
-
-
-/**
- * Handle the Close action button being clicked.
- */
-advent.ActionArea.prototype.handleCloseClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.CLOSE);
-};
-
-
-/**
- * Handle the Talk To action button being clicked.
- */
-advent.ActionArea.prototype.handleTalkToClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.TALKTO);
-};
-
-
-/**
- * Handle the Pull action button being clicked.
- */
-advent.ActionArea.prototype.handlePullClick = function() {
-  this.game_.currentAction.setVerb(advent.Verb.PULL);
+advent.ActionArea.prototype.handleClick_ = function(verb) {
+  this.game_.currentAction.setVerb(verb);
 };
