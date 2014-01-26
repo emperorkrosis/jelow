@@ -210,7 +210,7 @@ advent.FountainScene = function(parent) {
       .add(0, Script.Ops.IF_NOT_FLAG, ['opened-pantry-door', 0, 2])
       .add(0, Script.Ops.TALK,
           ['pctalk', 'SHOULD I OPEN IT?', 1500])
-      .add(0, Script.Ops.EXIT, [])
+      .add(0, Script.Ops.END, [])
       .add(0, Script.Ops.WALK, [133, 486])
       .add(0, Script.Ops.LOAD, ['pantry', 981, 458])
       .add(0, Script.Ops.WALK, [921, 458])

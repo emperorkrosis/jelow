@@ -3,23 +3,78 @@
 var advent = advent || {};
 
 /**
- * Constructor.
+ * Construct an action object. Actions for the basis of all interaction in
+ * the game. An action can have a committed state as well as a tentative
+ * state. The tentative state is ephemeral and only is used to represent a
+ * potential future state of the action. Once an action is executed the
+ * non-tentative state is used.
+ * @constructor
  */
 advent.Action = function() {
+  /**
+   * The verb component of the action.
+   * @private {advent.Verb}
+   */
   this.verb_ = null;
+
+  /**
+   * The tentative verb of the action.
+   * @private {advent.Verb}
+   */
   this.tentativeVerb_ = null;
+
+  /**
+   * The direct object of the action. The item or actor that will have the
+   * action operated on.
+   * @private {Object}
+   */
   this.directObject_ = null;
+
+  /**
+   * The id for the direct object of the action.
+   * @private {string}
+   */
   this.directObjectId_ = null;
+
+  /**
+   * Tentative direct object.
+   * @private {Object}
+   */
   this.tentativeDirectObject_ = null;
+
+  /**
+   * The indirect object of the action. Useful only for some verbs.
+   * @private {Object}
+   */
   this.indirectObject_ = null;
+
+  /**
+   * The id of the indirect object of the action. Useful only for some verbs.
+   * @private {Object}
+   */
   this.indirectObjectId_ = null;
+
+  /**
+   * The indirect object of the action. Useful only for some verbs.
+   * @private {Object}
+   */
   this.tentativeIndirectObject_ = null;
+
+  /**
+   * Array of callbacks to be invoked whenever this action changes. Used
+   * primarily by UI components to update the interface when the object
+   * changes.
+   * @type {Array.<Function>}
+   */
   this.onchange = [];
 };
 
 
 /**
- * Enum for the action verb.
+ * Enum for the action verbs.
+ * TODO: These verbs will be different for every game and should probably be
+ * provided as part of the API.
+ * @enum {number}
  */
 advent.Verb = {
   GIVE: 0,
@@ -36,7 +91,10 @@ advent.Verb = {
 
 
 /**
- * The properties of the actions.
+ * Mapping from action to the verb sentence associated with that string.
+ * TODO: These verbs will be different for every game and should probably be
+ * provided as part of the API.
+ * @type {Array.<string|boolean>}
  */
 advent.Action.VerbProperties = [
   ['Give', true, 'to'], 
@@ -52,6 +110,11 @@ advent.Action.VerbProperties = [
 ];
 
 
+/**
+ * Whether the given action is a complete action or not. Actions can either
+ * be complete and can then be executed or partial (i.e. pending).
+ * @returns {boolean} Whether the given action is complete.
+ */
 advent.Action.prototype.isComplete = function() {
   if (this.verb_ !== null && this.directObject_ !== null) {
     return (this.indirectObject_ !== null ||
@@ -61,15 +124,11 @@ advent.Action.prototype.isComplete = function() {
 };
 
 
-advent.Action.prototype.setTentativeVerb = function(verb) {
-  if (this.getNonTentativeVerb() === null) {
-    this.tentativeVerb_ = verb;
-    this.verb_ = null;
-  }
-  this.update_();
-};
-
-
+/**
+ * Set the verb for the current action. Setting the verb implicitly clears
+ * the rest of the action.
+ * @param {advent.Verb}
+ */
 advent.Action.prototype.setVerb = function(verb) {
   this.verb_ = verb;
   this.tentativeVerb_ = null;
@@ -83,6 +142,49 @@ advent.Action.prototype.setVerb = function(verb) {
 };
 
 
+/**
+ * Set the tentative verb for the current action.
+ * @param {advent.Verb}
+ */
+advent.Action.prototype.setTentativeVerb = function(verb) {
+  if (this.getNonTentativeVerb() === null) {
+    this.tentativeVerb_ = verb;
+    this.verb_ = null;
+  }
+  this.update_();
+};
+
+
+/**
+ * @returns {advent.Verb} The verb component of the action, ignoring any
+ *     tentative verb that is set.
+ */
+advent.Action.prototype.getNonTentativeVerb = function() {
+  return this.verb_;
+};
+
+
+/**
+ * Get the verb of the action. If there is a tentative verb then that is
+ * preferred and returned over the set verb.
+ * @returns {advent.Verb} The verb that this action represents.
+ */
+advent.Action.prototype.getVerb = function() {
+    return ((this.verb_ !== null) ? this.verb_ :
+	((this.tentativeVerb_ !== null) ?
+        this.tentativeVerb_ : null));
+};
+
+
+/**
+ * Set a direct object for the action. Optionally, allow a default verb to
+ * be passed in that will be set if there is not already a verb set for the
+ * action.
+ * @param {Object} The direct object.
+ * @param {string} The id of the direct object.
+ * @param {advent.Verb=} An optional verb that will be set for the action if
+ *     there is not already a verb set.
+ */
 advent.Action.prototype.setObject = function(txt, id, opt_defaultVerb) {
   if (this.getNonTentativeVerb() === null && opt_defaultVerb !== undefined) {
     this.setVerb(opt_defaultVerb);
@@ -101,6 +203,13 @@ advent.Action.prototype.setObject = function(txt, id, opt_defaultVerb) {
   this.update_();
 };
 
+
+/**
+ * Set the tentative direct object of the action.
+ * @param {Object} The direct object.
+ * @param {advent.Verb=} An optional verb that will be set for the action if
+ *     there is not already a verb set.
+ */
 advent.Action.prototype.setTentativeObject = function(txt, opt_defaultVerb) {
   if (this.getNonTentativeVerb() == null && opt_defaultVerb !== undefined) {
     this.setTentativeVerb(opt_defaultVerb);
@@ -115,22 +224,10 @@ advent.Action.prototype.setTentativeObject = function(txt, opt_defaultVerb) {
   this.update_();
 };
 
-advent.Action.prototype.getNonTentativeVerb = function() {
-  return this.verb_;
-};
-
 
 /**
- * Get the verb of the action.
- */
-advent.Action.prototype.getVerb = function() {
-    return ((this.verb_ !== null) ? this.verb_ :
-	((this.tentativeVerb_ !== null) ?
-        this.tentativeVerb_ : null));
-};
-
-/**
- * Get the direct object of the action.
+ * Get the current direct object of the action.
+ * @returns {Object}
  */
 advent.Action.prototype.getDirectObject = function() {
     return ((this.directObject_ !== null) ? this.directObject_ :
@@ -140,7 +237,8 @@ advent.Action.prototype.getDirectObject = function() {
 
 
 /**
- * Get the direct object id of the action.
+ * Get the id of the current direct object of the action.
+ * @returns {string}
  */
 advent.Action.prototype.getDirectObjectId = function() {
     return this.directObjectId_;
@@ -148,7 +246,8 @@ advent.Action.prototype.getDirectObjectId = function() {
 
 
 /**
- * Get the indirect object of the action.
+ * Return the current the indirect object of the action.
+ * @returns {Object}
  */
 advent.Action.prototype.getIndirectObject = function() {
     return (this.indirectObject_ !== null) ? this.indirectObject_ :
@@ -158,7 +257,8 @@ advent.Action.prototype.getIndirectObject = function() {
 
 
 /**
- * Get the direct object id of the action.
+ * Get the id of the current indirect object of the action.
+ * @returns {string}
  */
 advent.Action.prototype.getIndirectObjectId = function() {
     return this.indirectObjectId_;
@@ -166,7 +266,7 @@ advent.Action.prototype.getIndirectObjectId = function() {
 
 
 /**
- * Clear all the tentative values.
+ * Clear all tentative fields of this action.
  */
 advent.Action.prototype.clearTentative = function() {
   this.tentativeIndirectObject_ = null;
@@ -175,6 +275,10 @@ advent.Action.prototype.clearTentative = function() {
   this.update_();
 };
 
+
+/**
+ * Clear all fields of this action.
+ */
 advent.Action.prototype.clearAction = function() {
   this.indirectObject_ = null;
   this.indirectObject_ = null;
@@ -187,8 +291,12 @@ advent.Action.prototype.clearAction = function() {
   this.update_();
 };
 
+
 /**
- * Get textual representation of an action.
+ * Returns a textual representation of this action. This is useful for
+ * displaying a description of the action in the UI. TODO: This should
+ * probably be overridable by some games.
+ * @returns {string}
  */
 advent.Action.prototype.getText = function() {
   var text = '';
@@ -213,7 +321,9 @@ advent.Action.prototype.getText = function() {
 
 
 /**
- * Handle the action changing. Inform the current area of the change.
+ * Helper that handles the action changing. This will invoke the onchange
+ * handlers so that they can update themselves to reflect the change.
+ * @private
  */
 advent.Action.prototype.update_ = function() {
   for (var i = 0 ; i < this.onchange.length; i++) {
