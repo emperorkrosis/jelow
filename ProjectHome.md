@@ -1,0 +1,1 @@
+This is a javascript adventure game engine that can be customized for a variety of adventure games.
